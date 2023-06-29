@@ -30,7 +30,10 @@ def create_database(db_name: str, params: dict) -> None:
     conn.autocommit = True
     cur = conn.cursor()
 
-    cur.execute(f"DROP DATABASE {db_name}")
+    try:
+        cur.execute(f"DROP DATABASE {db_name}")
+    except Exception as ex:
+        print(ex)
     cur.execute(f"CREATE DATABASE {db_name}")
 
     conn.close()
