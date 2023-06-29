@@ -4,7 +4,10 @@ from utils.config import config
 
 
 def user_interaction():
-
+    """
+    Функция взаимодействия с пользователем
+    """
+    # Список выбранных работодателей (id с HeadHunter)
     employer_ids = [3529, 1740, 80, 78638, 3809, 4219, 3776, 23186, 59, 988387]
 
     params = config()

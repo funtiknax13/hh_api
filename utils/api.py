@@ -7,12 +7,13 @@ class HeadHunterAPI:
     """
     Класс для работы с api HeadHunter
     """
+    # Ссылки на апи ХедХантер
     api_vacancies = "https://api.hh.ru/vacancies"
     api_employers = "https://api.hh.ru/employers/"
 
     def get_employer_vacancies(self, employer_id: int, query: str) -> list:
         """
-        Получает список вакансий по ключевому слову name с HH и id работодателя
+        Получает список вакансий по ключевому слову query HH и id работодателя
         """
         data = []
         for page_index in range(30):
@@ -29,7 +30,7 @@ class HeadHunterAPI:
                 data.extend(response_data)
             except Exception as ex:
                 break
-            time.sleep(3)
+            # time.sleep(3)
         return data
 
     def get_employer_info(self, employer_id: int) -> dict:

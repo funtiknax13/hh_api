@@ -4,18 +4,28 @@ from utils.api import HeadHunterAPI
 
 
 def get_hh_data(employer_ids: list) -> list:
+    """
+    Функция для получения данных с api HeadHunter
+    :param employer_ids: список id выбранных работодателей
+    :return: список из словарей, содержащих информацию о работодателе и его вакансиях
+    """
     data = []
     hh = HeadHunterAPI()
     for employer_id in employer_ids:
         employer = hh.get_employer_info(employer_id)
+        # Поиск вакансий Python
         vacancies = hh.get_employer_vacancies(employer_id, "Python")
-        print(len(vacancies))
         data.append({"employer": employer, "vacancies": vacancies})
     return data
 
 
-def create_database(db_name: str, params: dict):
-
+def create_database(db_name: str, params: dict) -> None:
+    """
+    Создание базы данных
+    :param db_name: имя базы данных
+    :param params: параметры для подключения к БД
+    :return: none
+    """
     conn = psycopg2.connect(dbname="postgres", **params)
     conn.autocommit = True
     cur = conn.cursor()
@@ -59,7 +69,13 @@ def create_database(db_name: str, params: dict):
 
 
 def save_data_to_database(data: list, db_name: str, params: dict):
-    """Сохранение данных о работодателях и их вакансиях."""
+    """
+    Заполнение базы данных инфолрмацией
+    :param data: данные о работодателе и вакансиях
+    :param db_name: имя базы данных
+    :param params: параметры для подключения к БД
+    :return: none
+    """
 
     conn = psycopg2.connect(dbname=db_name, **params)
 
